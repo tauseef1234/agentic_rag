@@ -6,7 +6,7 @@ This repo contains the source code for an LLM RAG Chatbot built with LangChain, 
 
 - **Tool calling**: The chatbot agent has access to multiple tools including LangChain chains for RAG and fake API calls.
 
-- **RAG over unstructured data**: The chatbot can answer questions about customer experiences based on their reviews. Patient reviews are embedded using OpenAI embedding models and stored in a Neo4j vector index. Currently, the RAG over unstructured data is fairly bare-bones and doesn't implement any advanced RAG techniques.
+- **RAG over unstructured data**: The chatbot can answer questions about banking policy and FAQs. Policy anf FAQ related information are embedded using OpenAI embedding models and stored in a Neo4j vector index. Currently, the RAG over unstructured data is fairly bare-bones and doesn't implement any advanced RAG techniques.
 
 - **RAG over structured data (Text-to-Cypher)**: The chatbot can answer questions about structured Banking system data stored in a Neo4j graph database. If the chatbot agent thinks it can respond to your input query by querying the Neo4j graph, it will try to generate and run a Cypher query and summarize the results.
 
