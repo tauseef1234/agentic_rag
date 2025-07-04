@@ -1,0 +1,6 @@
+customer_id,first_name,last_name,email,phone_number,address,city,state,zip_code,country
+C001,Alice,Smith,alice.s@examplebank.com,555-111-2222,123 Main St,Anytown,NY,12345,USA
+C002,Bob,Johnson,bob.j@examplebank.com,555-333-4444,456 Oak Ave,Somewhere,CO,67890,USA
+C003,Charlie,Brown,charlie.b@examplebank.com,555-555-6666,789 Pine Ln,Otherville,CA,13579,USA
+C004,Diana,Prince,diana.p@examplebank.com,555-777-8888,101 Maple Dr,Villagetown, A,24680,USA
+C005,Ethan,Hunt,ethan.h@examplebank.com,555-999-0000,222 Cedar Rd,Cityburg,IL,97531,USA

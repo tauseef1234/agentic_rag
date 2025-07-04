@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  neo4j:
+    image: neo4j:5.13
+    ports:
+      - "7474:7474"   # Web UI
+      - "7687:7687"   # Bolt protocol (used by app)
+    environment:
+      NEO4J_AUTH: "${NEO4J_USERNAME}/${NEO4J_PASSWORD}"
+      NEO4J_PLUGINS: '["apoc"]'  #  added
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"   #  added
+      NEO4J_dbms_security_procedures_whitelist: "apoc.*"      #  added
+      NEO4J_apoc_export_file_enabled: "true"                  #  added
+      NEO4J_apoc_import_file_enabled: "true"                  #  added
+      NEO4J_apoc_import_file_use__neo4j__config: "true"       #  added
+    volumes:
+      - neo4j_data:/data
+
+  bank_neo4j_etl:
+    build:
+      context: ./bank_neo4j_etl
+    env_file:
+      - .env
+    depends_on:
+      - neo4j
+
+  chatbot_api:
+    build:
+      context: ./chatbot_api
+    env_file:
+      - .env
+    depends_on:
+      - bank_neo4j_etl
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    entrypoint: >
+      sh -c "
+      echo 'Waiting for Neo4j...' &&
+      while ! nc -z neo4j 7687; do sleep 2; done &&
+      echo ' Neo4j is up. Starting chatbot_api...' &&
+      exec /app/entrypoint.sh
+      "
+
+
+  chatbot_frontend:
+    build:
+      context: ./chatbot_frontend
+    env_file:
+      - .env
+    depends_on:
+      - chatbot_api
+    ports:
+      - "8501:8501"
+    environment:
+      - CHATBOT_URL=http://chatbot_api:8000/bank-rag-agent
+
+  cypher_example_portal:
+    build:
+      context: ./cypher_example_portal
+    env_file:
+      - .env
+    depends_on:
+      - bank_neo4j_etl
+    ports:
+      - "8502:8502"
+
+volumes:
+  neo4j_data:
