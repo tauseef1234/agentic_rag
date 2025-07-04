@@ -1,6 +1,6 @@
 # Build an LLM RAG Chatbot With LangChain
 
-This repo contains the source code for an LLM RAG Chatbot built with LangChain, originally created for the Real Python article [Build an LLM RAG Chatbot With LangChain](https://realpython.com/build-llm-rag-chatbot-with-langchain/#demo-a-llm-rag-chatbot-with-langchain-and-neo4j). The goal of this project is to iteratively develop a chatbot that leverages the latest techniques, libraries, and models in RAG and Generative AI. Ideally, this repo gives developers a template to build chatbots for their own data and use-cases.
+This repo contains the source code for an LLM RAG Chatbot built with LangChain, inspired by the Real Python article [Build an LLM RAG Chatbot With LangChain](https://realpython.com/build-llm-rag-chatbot-with-langchain/#demo-a-llm-rag-chatbot-with-langchain-and-neo4j).
 
  Currently, the chatbot performs RAG over a synthetic [Banking system dataset](https://realpython.com/build-llm-rag-chatbot-with-langchain/#explore-the-available-data) and supports the following features:
 
@@ -8,7 +8,7 @@ This repo contains the source code for an LLM RAG Chatbot built with LangChain, 
 
 - **RAG over unstructured data**: The chatbot can answer questions about banking policy and FAQs. Policy anf FAQ related information are embedded using OpenAI embedding models and stored in a Neo4j vector index. Currently, the RAG over unstructured data is fairly bare-bones and doesn't implement any advanced RAG techniques.
 
-- **RAG over structured data (Text-to-Cypher)**: The chatbot can answer questions about structured Banking system data stored in a Neo4j graph database. If the chatbot agent thinks it can respond to your input query by querying the Neo4j graph, it will try to generate and run a Cypher query and summarize the results.
+- **RAG over structured data (Text-to-Cypher)**: The chatbot can answer questions about structured customer banking data stored in a Neo4j graph database. If the chatbot agent thinks it can respond to your input query by querying the Neo4j graph, it will try to generate and run a Cypher query and summarize the results.
 
 - **Dynamic few-shot prompting**: When the chatbot needs to generate Cypher queries based on your input query, it retrieves semantically similar questions and their corresponding Cypher queries from a vector index and uses them as context in the Cypher generation prompt. This retrieval strategy helps the chatbot generate more accurate queries and keeps the prompt small by only including examples that are relevant to the current input query.
 

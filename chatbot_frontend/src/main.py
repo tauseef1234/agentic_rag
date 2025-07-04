@@ -30,15 +30,12 @@ with st.sidebar:
     """)
 
     st.header("Example Questions")
-    st.markdown("""- Find all customers living in California.""")
+    st.markdown("""- What is the current due amount on my mortgage""")
     st.markdown("""- What is the current wait time at wallace-hamilton branch?""")
-    st.markdown("""- What is the email address of the customer with customer ID C001?""")
-    st.markdown("- What is the average duration in days for closed emergency visits?")
+    st.markdown("""- Are there any late fees on my mortgage""")
+    st.markdown("- How to avoid getting charged late fees?")
     st.markdown("- What are the terms and conditions for the new mortgage product?")
     st.markdown("- What was the total late fee charged for customer Bob?")
-    st.markdown("- What is the average billing amount for medicaid visits?")
-    st.markdown("- Which physician has the lowest average visit duration in days?")
-    st.markdown("- How much was billed for patient 789's stay?")
     st.markdown("- How many active 'Adjustable-Rate' loans are held by customers in New York?")
 
 # ---- Title ---- 
