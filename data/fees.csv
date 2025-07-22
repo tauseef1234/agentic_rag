@@ -1,0 +1,6 @@
+fee_id,customer_id,mortgage_id,fee_type,amount,date_incurred,status
+F001,C003,M003,Late Fee,35.00,2025-05-16,Due
+F002,C001,M001,Late Fee,35.00,2025-04-16,Paid
+F003,C005,M005,Appraisal,500.00,2020-09-10,Paid
+F004,C002,M002,Late Fee,35.00,2025-05-20,Due
+F005,C001,M006,Late Fee,35.00,2025-04-20,Due
