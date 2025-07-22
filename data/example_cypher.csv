@@ -1,23 +1,98 @@
-question, cypher
+question,cypher
 What is the email address of the customer with customer ID 101?,"
-MATCH (c:Customer {customer_id: 101}) RETURN c.email"
+     MATCH (c:Customer {id: 101}) 
+     RETURN c.email
+     "
 Find all customers living in California.,"
-MATCH (c:Customer) WHERE c.state = 'CA' RETURN c.first_name, c.last_name, c.city"
+     MATCH (c:Customer) 
+     WHERE c.state = 'CA' 
+     RETURN c.name
+     "
 What is the full address of Bob Johnson?,"
-MATCH (c:Customer {customer_name: 'Bob Johnson'}) RETURN c.address, c.city, c.state, c.zip, c.country"
+     MATCH (c:Customer {customer_name: 'Bob Johnson'}) 
+     RETURN c.address, c.city, c.state, c.zip, c.country
+     "
 List all customer IDs and their corresponding names.,"
-MATCH (c:Customer) RETURN c.customer_id, c.customer_name"
+     MATCH (c:Customer) 
+     RETURN c.id, c.name
+     "
 What is the loan amount for loan number M001?,"
-MATCH (l:Loan {loan_number: 'M001'}) RETURN l.loan_amount"
+     MATCH (l:Loan {loan_number: 'M001'}) 
+     RETURN l.loan_amount
+     "
 What is the tenure for loan M002?,"
-MATCH (l:Loan {loan_number: 'M002'}) RETURN l.tenure"
+     MATCH (l:Loan {loan_number: 'M002'}) 
+     RETURN l.tenure
+     "
 Find loans with an interest rate greater than 3.8%.,"
-MATCH (l:Loan) WHERE toFloat(replace(l.interest_rate, '%', '')) > 3.8 RETURN l.loan_number, l.interest_rate"
+     MATCH (l:Loan) 
+     WHERE toFloat(replace(l.interest_rate, '%', '')) > 3.8 
+     RETURN l.loan_number, l.interest_rate
+     "
 What are the loan amounts for all loans held by Alice Smith?,"
-MATCH (c:Customer {customer_name: 'Alice Smith'})-[:HAS_LOAN]->(l:Loan) RETURN l.loan_number, l.loan_amount"
+      MATCH (c:Customer {customer_name: 'Alice Smith'})-[:HAS_LOAN]->(l:Loan) 
+      RETURN l.loan_number, l.loan_amount
+      "
 Which customer has loan M006?,"
-MATCH (c:Customer)-[:HAS_LOAN]->(l:Loan {loan_number: 'M006'}) RETURN c.customer_name"
+      MATCH (c:Customer)-[:HAS_LOAN]->(l:Loan {loan_number: 'M006'}) 
+      RETURN c.customer_name
+      "
 List all loans with an interest rate greater than 4.0% and the customer associated with them.,"
-MATCH (c:Customer)-[:HAS_LOAN]->(l:Loan) WHERE toFloat(replace(l.interest_rate, '%', '')) > 4.0 RETURN c.customer_name, l.loan_number, l.interest_rate"
+      MATCH (c:Customer)-[:HAS_LOAN]->(l:Loan) 
+      WHERE toFloat(replace(l.interest_rate, '%', '')) > 4.0 
+      RETURN c.customer_name, l.loan_number, l.interest_rate
+      "
 How many active 'Adjustable-Rate' loans are held by customers in New York?,"
-MATCH (c:Customer) WHERE c.state = 'NY' MATCH (c)-[:HAS_LOAN]->(l:Loan) WHERE l.loan_type = 'Adjustable-Rate' AND l.status = 'Active' RETURN count(l) AS ny_adjustable_active_loans"
+      MATCH (c:Customer) WHERE c.state = 'NY' MATCH (c)-[:HAS_LOAN]->(l:Loan) 
+      WHERE l.loan_type = 'Adjustable-Rate' AND l.status = 'Active' 
+      RETURN count(l) AS ny_adjustable_active_loans
+      "
+What is the total outstanding late fees for Alice Smith?,"
+      MATCH (c:customer)-[:HAS_MORTGAGE]->(m:mortgage)-[:HAS_SCHEDULED_PAYMENT]->(pd:payments_due)-[:MAY_RESULT_IN]->(f:fee) 
+      WHERE c.customer_name = 'Alice Smith' AND f.fee_type = 'Late Fee' AND f.status = 'Due' 
+      RETURN SUM(f.amount) AS TotalOutstandingLateFees
+      "
+List all scheduled payments for Bob Johnson.,"
+      MATCH (c:customer)-[:HAS_MORTGAGE]->(m:mortgage)-[:HAS_SCHEDULED_PAYMENT]->(pd:payments_due) 
+      WHERE c.customer_name = 'Bob Johnson' 
+      RETURN pd.payment_due_id, pd.amount, pd.due_date, pd.status
+      "
+Has Charlie Brown paid his late fee incurred on 2025-05-16?,"
+     MATCH (c:customer)-[:OWES]->(f:fee) 
+     WHERE c.customer_name = 'Charlie Brown' AND f.fee_type = 'Late Fee' AND f.date_incurred = '2025-05-16' 
+     RETURN f.status
+     "
+What is the interest rate on Diana Prince's mortgage?,"
+     MATCH (c:customer)-[:HAS_MORTGAGE]->(m:mortgage) 
+     WHERE c.customer_name = 'Diana Prince' 
+     RETURN m.interest_rate
+     "
+Show me all payments made by Ethan Hunt.,"
+     MATCH (c:customer)-[:HAS_MADE]->(pm:payments_made) 
+     WHERE c.customer_name = 'Ethan Hunt' 
+     RETURN pm.payment_made_id, pm.amount, pm.payment_date
+     "
+Find the due date for payment PD006.,"
+     MATCH (pd:payments_due) 
+     WHERE pd.payment_due_id = 'PD006' 
+     RETURN pd.due_date
+     "
+Which mortgage is fee F004 associated with?,"
+     MATCH (f:fee)-[:OWES]->(c:customer)-[:HAS_MORTGAGE]->(m:mortgage) 
+     WHERE f.fee_id = 'F004' RETURN m.loan_number
+     "
+What is the status of payment PD007?,"
+     MATCH (pd:payments_due) 
+     WHERE pd.payment_due_id = 'PD007' 
+     RETURN pd.status
+     "
+How many active mortgages does Alice Smith have?,"
+     MATCH (c:customer)-[:HAS_MORTGAGE]->(m:mortgage) 
+     WHERE c.customer_name = 'Alice Smith' AND m.status = 'Active' 
+     RETURN COUNT(m) AS ActiveMortgagesCount
+     "
+What is the loan amount for mortgage M005?,"
+     MATCH (m:mortgage) 
+     WHERE m.loan_number = 'M005' 
+     RETURN m.loan_amount
+     "
