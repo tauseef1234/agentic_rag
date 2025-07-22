@@ -1,7 +1,7 @@
 loan_number,customer_id,loan_amount,interest_rate,loan_type,start_date,status,tenure
-M001,C001,250000,3.5,Fixed-Rate 30yr,2020-05-15,Active,30
-M002,C002,350000,3.8,Fixed-Rate 15yr,2021-01-20,Active,15
-M003,C003,180000,4.0,Adjustable-Rate,2019-11-10,Active,N/A
-M004,C004,450000,3.2,Fixed-Rate 30yr,2022-07-01,Active,30
-M005,C005,300000,3.6,Fixed-Rate 20yr,2020-09-25,Active,20
-M006,C001,50000,4.5,Home Equity Line,2023-03-10,Active,N/A
+M001,C001,250000,3.5%,Fixed-Rate 30yr,2020-05-15,Active,30
+M002,C002,350000,3.8%,Fixed-Rate 15yr,2021-01-20,Active,15
+M003,C003,180000,4.0%,Adjustable-Rate,2019-11-10,Active,N/A
+M004,C004,450000,3.2%,Fixed-Rate 30yr,2022-07-01,Active,30
+M005,C005,300000,3.6%,Fixed-Rate 20yr,2020-09-25,Active,20
+M006,C001,50000,4.5%,Home Equity Line,2023-03-10,Active,N/A
